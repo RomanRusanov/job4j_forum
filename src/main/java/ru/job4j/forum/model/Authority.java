@@ -1,8 +1,10 @@
 package ru.job4j.forum.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Objects;
 
-public class Authority {
+public class Authority implements GrantedAuthority {
     private int id;
     private String authority;
 
@@ -21,7 +23,8 @@ public class Authority {
         this.id = id;
     }
 
-    public String getName() {
+    @Override
+    public String getAuthority() {
         return authority;
     }
 
@@ -49,4 +52,6 @@ public class Authority {
                 ", authority='" + authority + '\'' +
                 '}';
     }
+
+
 }

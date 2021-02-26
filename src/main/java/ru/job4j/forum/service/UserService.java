@@ -1,5 +1,10 @@
 package ru.job4j.forum.service;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.User;
@@ -11,22 +16,29 @@ import java.util.Collection;
 public class UserService {
 
     private Collection<User> users = new ArrayList<>();
+    private AuthenticationManagerBuilder auth;
+    private PasswordEncoder passwordEncoder;
 
-    public UserService() {
-        this.users.add(User.of(
+    public UserService(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) {
+        this.auth = auth;
+        this.passwordEncoder = passwordEncoder;
+        Authority userAth = Authority.of(1, "USER");
+        Authority adminAth = Authority.of(2, "ADMIN");
+        User user = User.of(
                 1 ,
                 "pass",
                 "user",
-                Authority.of(1, "USER"),
-                true));
-        this.users.add(User.of(
+                true);
+        user.addAuthority(userAth);
+        User admin = User.of(
                 2 ,
                 "secret",
                 "admin",
-                Authority.of(2, "ADMIN"),
-                true));
+                true);
+        admin.addAuthority(adminAth);
+        this.users.add(user);
+        this.users.add(admin);
     }
-
     public Collection<User> getAllUsers() {
         return new ArrayList<>(this.users);
     }
@@ -38,6 +50,9 @@ public class UserService {
     }
 
     public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.users.add(user);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

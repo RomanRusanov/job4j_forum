@@ -22,13 +22,13 @@ public class AuthorityService {
 
     public Authority getAuthorityByName(String name) {
         return this.authority.stream()
-                .filter(authority -> name.equals(authority.getName()))
+                .filter(authority -> name.equals(authority.getAuthority()))
                 .findFirst().get();
     }
 
     public Authority findByAuthority(String roleUser) {
         return this.authority.stream()
-                .filter(authority -> roleUser.equals(authority.getName()))
+                .filter(authority -> roleUser.equals(authority.getAuthority()))
                 .findFirst().get();
     }
 }

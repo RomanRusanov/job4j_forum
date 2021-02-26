@@ -23,11 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         for (User user : userService.getAllUsers()) {
+            String role = user.getAuthorities().stream().findFirst().get().getAuthority();
             auth.inMemoryAuthentication()
                     .passwordEncoder(passwordEncoder)
                     .withUser(user.getUsername())
                     .password(passwordEncoder.encode(user.getPassword()))
-                    .roles(user.getAuthority().getName());
+                    .roles(role);
         }
     }
 

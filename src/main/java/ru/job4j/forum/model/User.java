@@ -1,26 +1,38 @@
 package ru.job4j.forum.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-public class User {
+public class User implements UserDetails {
     private int id;
     private String password;
     private String username;
-    private Authority authority;
+    private List<Authority> authority = new ArrayList<>();
     private boolean enabled;
 
     public static User of(int id,
                           String password,
                           String username,
-                          Authority authority,
                           boolean enabled) {
         User user = new User();
         user.id = id;
         user.password = password;
         user.username = username;
-        user.authority = authority;
         user.enabled = enabled;
         return user;
+    }
+
+    public void addAuthority(Authority authority) {
+        this.authority.add(authority);
+    }
+
+    public void setAuthority(List<Authority> authority) {
+        this.authority = authority;
     }
 
     public int getId() {
@@ -29,6 +41,11 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<Authority>(this.authority);
     }
 
     public String getPassword() {
@@ -47,20 +64,27 @@ public class User {
         this.username = username;
     }
 
-    public Authority getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(Authority authority) {
-        this.authority = authority;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
     @Override
