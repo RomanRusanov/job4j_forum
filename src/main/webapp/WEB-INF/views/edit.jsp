@@ -53,14 +53,13 @@
         <input type="hidden" name="post_id" value="${post.id}" />
         <table>
             <tr>
-                <td>Название темы:</td>
-            </tr>
-            <tr>
                 <c:choose>
                     <c:when test="${not empty post}">
+                        <label for="name">Название темы:</label>
                         <input type='text' name='name' title="Название темы" id="name" value="${post.name}">
                     </c:when>
                     <c:otherwise>
+                        <label for="name">Название темы:</label>
                         <input type='text' name='name' title="Название темы" id="name">
                     </c:otherwise>
                 </c:choose>

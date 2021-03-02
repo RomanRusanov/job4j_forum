@@ -16,6 +16,7 @@
 <body>
 <div class="container mt-3">
     Login as : ${sessionScope.user.username}
+    <a href="/logout">Logout</a>
 </div>
 <div class="container mt-3">
     <div class="row">

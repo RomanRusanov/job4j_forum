@@ -10,8 +10,6 @@ import ru.job4j.forum.model.Discussions;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.service.PostService;
 
-import java.util.Optional;
-
 @Controller
 public class PostControl {
 

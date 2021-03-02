@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Entity(name = "users")
@@ -14,6 +16,10 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    @ManyToOne
+    @JoinColumn(name = "authority_id")
+    private Authority authority;
+    private boolean enabled;
 
     public Long getId() {
         return id;
@@ -21,6 +27,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -31,12 +45,20 @@ public class User {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
@@ -59,9 +81,11 @@ public class User {
     @Override
     public String toString() {
         return "User{"
-                + "id='" + id + '\''
-                + ", password='" + password + '\''
-                + ", username='" + username + '\''
-                + '}';
+            + "id=" + id
+            + ", username='" + username + '\''
+            + ", password='" + password + '\''
+            + ", authority=" + authority
+            + ", enabled=" + enabled
+            + '}';
     }
 }

@@ -1,12 +1,14 @@
 package ru.job4j.forum;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import ru.job4j.forum.filter.AuthenticateFilter;
+
+import javax.sql.DataSource;
 
 @SpringBootApplication
 public class Main extends SpringBootServletInitializer {
@@ -16,14 +18,16 @@ public class Main extends SpringBootServletInitializer {
     }
 
     @Bean
-    public FilterRegistrationBean<AuthenticateFilter> loggingFilter() {
-        FilterRegistrationBean<AuthenticateFilter> registrationBean
-                = new FilterRegistrationBean<>();
-
-        registrationBean.setFilter(new AuthenticateFilter());
-        registrationBean.addUrlPatterns("/**");
-
-        return registrationBean;
+    public DataSource ds(@Value("${spring.datasource.driver-class-name}") String driver,
+                         @Value("${spring.datasource.url}") String url,
+                         @Value("${spring.datasource.username}") String username,
+                         @Value("${spring.datasource.password}") String password) {
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName(driver);
+        ds.setUrl(url);
+        ds.setUsername(username);
+        ds.setPassword(password);
+        return ds;
     }
 
     public static void main(String[] args) {
