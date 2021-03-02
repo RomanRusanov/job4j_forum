@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.Discussions;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.service.PostService;
+
+import java.util.Optional;
+
 @Controller
 public class PostControl {
 
@@ -19,7 +22,7 @@ public class PostControl {
     }
 
     @GetMapping("/edit")
-    public String editPost(@RequestParam(value = "post_id", required = false) Integer id, Model model) {
+    public String editPost(@RequestParam(value = "post_id", required = false) Long id, Model model) {
         if (id != null) {
             model.addAttribute("post", postService.getPostById(id));
         }
@@ -27,7 +30,7 @@ public class PostControl {
     }
 
     @PostMapping("/save")
-    public String savePost(@RequestParam(value = "post_id", required = false) Integer id,
+    public String savePost(@RequestParam(value = "post_id", required = false) Long id,
                            @ModelAttribute Post post) {
         if (id != null) {
             Post postFromStore = postService.getPostById(id);
@@ -40,20 +43,20 @@ public class PostControl {
     }
 
     @GetMapping("/post")
-    public String discussion(@RequestParam("post_id") Integer id, Model model) {
+    public String discussion(@RequestParam("post_id") Long id, Model model) {
         model.addAttribute("post", this.postService.getPostById(id));
         return "post";
     }
 
     @GetMapping("/add_discussion")
-    public String addDiscussion(@RequestParam("post_id") Integer id, Model model) {
+    public String addDiscussion(@RequestParam("post_id") Long id, Model model) {
         model.addAttribute("post_id", id);
         model.addAttribute("post_name", this.postService.getPostById(id).getName());
         return "add_discussion";
     }
 
     @PostMapping("/add_discussion")
-    public String saveDiscussion(@RequestParam("post_id") Integer id,
+    public String saveDiscussion(@RequestParam("post_id") Long id,
                                  @ModelAttribute Discussions discussions,
                                  Model model) {
         model.addAttribute("post_id", id);

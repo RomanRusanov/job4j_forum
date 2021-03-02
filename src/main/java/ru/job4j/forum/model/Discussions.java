@@ -1,13 +1,18 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
-
+@Entity
 public class Discussions {
-
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String description;
     private Calendar created;
 
@@ -16,18 +21,11 @@ public class Discussions {
         this.created.setTimeInMillis(System.currentTimeMillis());
     }
 
-    public static Discussions of(int id, String description) {
-        Discussions dis = new Discussions();
-        dis.id = id;
-        dis.description = description;
-        return dis;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

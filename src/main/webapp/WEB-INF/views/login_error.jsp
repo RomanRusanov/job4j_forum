@@ -6,5 +6,8 @@
 </head>
 <body>
 User name or password not correct!
+<div>
+    <a href="/login">To logon page</a>
+</div>
 </body>
 </html>

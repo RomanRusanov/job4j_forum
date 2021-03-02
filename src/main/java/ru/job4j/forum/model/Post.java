@@ -1,17 +1,37 @@
 package ru.job4j.forum.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
+@Table(name = "posts")
 public class Post {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private String desc;
     private Calendar created;
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "posts_discussions",
+            joinColumns = { @JoinColumn(name = "post_id") },
+            inverseJoinColumns = { @JoinColumn(name = "discussion_id")})
     private List<Discussions> discussions;
 
     {
@@ -20,18 +40,11 @@ public class Post {
         this.discussions = new ArrayList<>();
     }
 
-    public static Post of(int id, String name) {
-        Post post = new Post();
-        post.id = id;
-        post.name = name;
-        return post;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,14 +54,6 @@ public class Post {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public Calendar getCreated() {
@@ -86,13 +91,12 @@ public class Post {
         Post post = (Post) o;
         return id == post.id
                 && Objects.equals(name, post.name)
-                && Objects.equals(desc, post.desc)
                 && Objects.equals(created, post.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, created);
+        return Objects.hash(id, name, created);
     }
 
     @Override
@@ -100,7 +104,6 @@ public class Post {
         return "Post{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", desc='" + desc + '\''
                 + ", created=" + created
                 + '}';
     }

@@ -1,18 +1,26 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity(name = "users")
 public class User {
 
-    private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
+    private String password;
 
-    public static User of(String username,
-                          String password) {
-        User user = new User();
-        user.password = password;
-        user.username = username;
-        return user;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -40,18 +48,19 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return password.equals(user.password) && username.equals(user.username);
+        return id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(password, username);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "User{"
-                + "password='" + password + '\''
+                + "id='" + id + '\''
+                + ", password='" + password + '\''
                 + ", username='" + username + '\''
                 + '}';
     }

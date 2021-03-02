@@ -32,15 +32,13 @@ public class LoginControl {
     @PostMapping("/login")
     public String loginPage(@ModelAttribute User user, HttpSession session) {
         LOG.info(MARKER, "User: {} try to login", user);
-        String userNameTryToLogin = user.getUsername();
-        if (userService.userExistInStore(userNameTryToLogin)) {
-            User userFromStore = userService.getUserByName(userNameTryToLogin);
-            if (userFromStore.equals(user)) {
-                session.setAttribute("user", userFromStore);
-                return "redirect:index";
-            }
+        User userFromStore = userService.getUserByName(user.getUsername());
+        if (userFromStore != null
+                && userFromStore.getUsername().equals(user.getUsername())
+                && userFromStore.getPassword().equals(user.getPassword())) {
+            session.setAttribute("user", userFromStore);
+            return "redirect:index";
         }
         return "login_error";
     }
-
 }
