@@ -1,51 +1,18 @@
 package ru.job4j.forum.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
-public class User implements UserDetails {
-    private int id;
+public class User {
+
     private String password;
     private String username;
-    private List<Authority> authority = new ArrayList<>();
-    private boolean enabled;
 
-    public static User of(int id,
-                          String password,
-                          String username,
-                          boolean enabled) {
+    public static User of(String username,
+                          String password) {
         User user = new User();
-        user.id = id;
         user.password = password;
         user.username = username;
-        user.enabled = enabled;
         return user;
-    }
-
-    public void addAuthority(Authority authority) {
-        this.authority.add(authority);
-    }
-
-    public void setAuthority(List<Authority> authority) {
-        this.authority = authority;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<Authority>(this.authority);
     }
 
     public String getPassword() {
@@ -64,50 +31,28 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return id == user.id;
+        return password.equals(user.password) && username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(password, username);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
-                ", authority=" + authority +
-                ", enabled=" + enabled +
-                '}';
+        return "User{"
+                + "password='" + password + '\''
+                + ", username='" + username + '\''
+                + '}';
     }
 }

@@ -10,49 +10,52 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title>Форум job4j</title>
+    <script>
+        function validate() {
+            var description = checkUserInput($('#description'));
+            if (description !== "") {
+                return true;
+            }
+            return false;
+        }
+        function checkUserInput(input) {
+            var currentInput = $(input).val();
+            if (currentInput === '' || currentInput === undefined) {
+                alert("Поле: "+ $(input).attr('title') + " не заполнено")
+                return "";
+            }
+            return currentInput;
+        }
+    </script>
+    <title>Обсуждение</title>
 </head>
 <body>
 <div class="container mt-3">
-    Login as : ${sessionScope.user.username}
+    Login as : ${user.username}
 </div>
 <div class="container mt-3">
     <div class="row">
-        <h4>Форум job4j</h4>
+        <h4>Добавить обсуждение к теме: ${post_name}</h4>
     </div>
-    <div class="row">
-        <table class="table">
-            <thead>
+
+    </head>
+    <a href="/index">Перейти на главную страницу</a>
+    <form  class="editForm" action="<c:url value='/add_discussion'/>" method='POST'>
+        <input type="hidden" name="post_id" value="${post_id}" />
+        <table>
             <tr>
-                <th scope="col">Тема</th>
-                <th scope="col">Дата создания</th>
+                <td>Заполните текст комментария:</td>
             </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${requestScope.posts}" var="post">
-                <tr>
-                    <td>
-                        <a href='<c:url value="/edit?post_id=${post.id}"/>'>
-                            <i class="fa fa-edit mr-3"></i>
-                        </a>
-                        <a href='<c:url value="/post?post_id=${post.id}"/>'>
-                            <c:out value="${post.name}"/>
-                        </a>
-                    </td>
-                    <td>
-                        <c:out value="${post.getCreateDate()}"/>
-                    </td>
-                </tr>
-            </c:forEach>
             <tr>
                 <td colspan='2'>
-                    <a href='<c:url value="/edit"/>'>Добавить тему</a>
+                    <textarea name="description" title="Комментарий" id="description" cols="40" rows="3"></textarea>
                 </td>
             </tr>
-            </tbody>
+            <tr>
+                <td colspan='2'><input name="submit" type="submit" value="Сохранить" style="margin-left: 33%" onclick="return validate()"/></td>
+            </tr>
         </table>
-    </div>
+    </form>
 </div>
 
 <!-- Optional JavaScript -->
@@ -63,6 +66,5 @@
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </body>
 </html>

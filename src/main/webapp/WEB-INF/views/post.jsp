@@ -10,8 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title>Форум job4j</title>
+    <title>Тема: ${post.name}</title>
 </head>
 <body>
 <div class="container mt-3">
@@ -19,35 +18,28 @@
 </div>
 <div class="container mt-3">
     <div class="row">
-        <h4>Форум job4j</h4>
+        <h4>Тема: (${post.name}) создана: ${post.getCreateDate()}</h4>
     </div>
+    <a href="/index">Перейти на главную страницу</a>
+
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Тема</th>
-                <th scope="col">Дата создания</th>
+                <th scope="col">№</th>
+                <th scope="col">Название</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.posts}" var="post">
+            <c:forEach items="${requestScope.post.getDiscussions()}" var="discussion" varStatus="counter">
                 <tr>
-                    <td>
-                        <a href='<c:url value="/edit?post_id=${post.id}"/>'>
-                            <i class="fa fa-edit mr-3"></i>
-                        </a>
-                        <a href='<c:url value="/post?post_id=${post.id}"/>'>
-                            <c:out value="${post.name}"/>
-                        </a>
-                    </td>
-                    <td>
-                        <c:out value="${post.getCreateDate()}"/>
-                    </td>
+                    <td>${counter.index + 1}</td>
+                    <td>${discussion.description}</td>
                 </tr>
             </c:forEach>
             <tr>
                 <td colspan='2'>
-                    <a href='<c:url value="/edit"/>'>Добавить тему</a>
+                    <a href='<c:url value="/add_discussion?post_id=${post.id}"/>'>Добавить обсуждение</a>
                 </td>
             </tr>
             </tbody>
