@@ -13,37 +13,40 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@SpringBootTest()
+@SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class IndexControlTest {
+public class LoginControlTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private IndexControl control;
+    private LoginControl control;
 
     @Test
     @WithMockUser
-    public void shouldReturnIndex() throws Exception {
-        this.mockMvc.perform(get("/index"))
+    public void shouldReturnLogin() throws Exception {
+        this.mockMvc.perform(get("/login"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("login"));
+    }
+
+    @Test
+    @WithMockUser
+    public void shouldReturnLogout() throws Exception {
+        this.mockMvc.perform(get("/logout"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login?logout=true"));
     }
 
     @Test
     public void contextLoads() throws Exception {
         assertThat(this.control).isNotNull();
-    }
-
-    @Test
-    @WithMockUser
-    public void shouldCheckView() throws Exception {
-        this.mockMvc.perform(get("/"))
-                .andExpect(content().string(containsString("Login as :")));
     }
 }

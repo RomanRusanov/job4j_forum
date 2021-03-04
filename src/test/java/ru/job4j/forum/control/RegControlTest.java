@@ -9,41 +9,32 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.forum.Main;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@SpringBootTest()
+@SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class IndexControlTest {
+public class RegControlTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private IndexControl control;
+    private RegControl control;
 
     @Test
     @WithMockUser
-    public void shouldReturnIndex() throws Exception {
-        this.mockMvc.perform(get("/index"))
+    public void shouldReturnReg() throws Exception {
+        this.mockMvc.perform(get("/reg"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("reg"));
     }
 
     @Test
     public void contextLoads() throws Exception {
         assertThat(this.control).isNotNull();
-    }
-
-    @Test
-    @WithMockUser
-    public void shouldCheckView() throws Exception {
-        this.mockMvc.perform(get("/"))
-                .andExpect(content().string(containsString("Login as :")));
     }
 }
