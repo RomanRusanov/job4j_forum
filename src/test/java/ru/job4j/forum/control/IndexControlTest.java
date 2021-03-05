@@ -39,11 +39,4 @@ public class IndexControlTest {
     public void contextLoads() throws Exception {
         assertThat(this.control).isNotNull();
     }
-
-    @Test
-    @WithMockUser
-    public void shouldCheckView() throws Exception {
-        this.mockMvc.perform(get("/"))
-                .andExpect(content().string(containsString("Login as :")));
-    }
 }
