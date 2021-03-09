@@ -84,6 +84,12 @@
       <version>2.2.2.RELEASE</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>3.6.2</version>
+    </dependency>
+
   </dependencies>
 
   <build>
