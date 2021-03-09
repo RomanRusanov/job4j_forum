@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 
 import javax.sql.DataSource;
 
@@ -19,6 +21,7 @@ public class Main extends SpringBootServletInitializer {
     }
 
     @Bean
+    @Order(1)
     public DataSource ds(@Value("${spring.datasource.driver-class-name}") String driver,
                          @Value("${spring.datasource.url}") String url,
                          @Value("${spring.datasource.username}") String username,
