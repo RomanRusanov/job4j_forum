@@ -50,11 +50,4 @@ public class LoginControlTest {
         assertThat(this.control).isNotNull();
     }
 
-    @Test
-    public void loginPage() throws Exception {
-        this.mockMvc.perform(get("/login"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("UserName:")));
-    }
 }
