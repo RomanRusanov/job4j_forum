@@ -21,7 +21,6 @@ public class Main extends SpringBootServletInitializer {
     }
 
     @Bean
-    @Order(1)
     public DataSource ds(@Value("${spring.datasource.driver-class-name}") String driver,
                          @Value("${spring.datasource.url}") String url,
                          @Value("${spring.datasource.username}") String username,
