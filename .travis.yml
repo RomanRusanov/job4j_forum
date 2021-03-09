@@ -6,14 +6,18 @@ jdk:
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
+install: true
+
+script: mvn clean package -DskipTests=true
+
 #services:
-postgresql
+#postgresql
 ## Изменяет текущую временную зону.
 before_install:
   - export TZ=Europe/Moscow
   - date
 #  # JDBC создание базы данных
-  - psql -c 'create database forum;' -U postgres
+#  - psql -c 'create database forum;' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
@@ -30,3 +34,10 @@ notifications:
       -roman9628@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+deploy:
+  provider: heroku
+  api_key:
+    secure:
+      DuaECMsTWdRLV389Ah5rgHA47y+uRHX/nYywUGROh70GTOWdgTe88m41YtMnXJY+wvJBP9eUzU+hoCwZVsDY7kGx5Eg8B7i4V/Q/AKmkEZ0TCGgL19nyOoGukiSgc/noqSEicBGMdoVDIjdQzNzQH2ow0Z8okgIPkMR2bvvZJO4eywZUUruFmtbotIDfbO+CiGb6pqHOJJJmzvQQos7Xks6XoEuVuRqJFZgW/r1fQEvvJ1G0ibBU1mR4cy5yVIAZ7/lGdVMS/e43jXeRnUBtQiCwvQymw/iCTaNvwKXN/tjpX0SozRzpIOVXglGNPI4jcmkzdfhej8f/0hgL3bDLOfWQxdUQ32dulZBM/D7SoFw9wlvwqYxvUUH6ix5ZoSYLQ7RuLN9vNlCkNiyxBzmjxjWqrPRoNQMV12lrdwEFd98iS727FEXmlSISoIQgLm4dYQznjvdi27MoZ9JEnHQ3nht/x9nuimV4lZegKMAsw4R4zxCdzz2dwaEPJWrdZx24pax8/twI8PHlEsivU4F2eYMqSOQFS7IkGOzKgRhd/fPEGrU/2M9fUSnN1TiJ5iX1B90ps+D/qi1IbwkqIKxY6ayNf1gU8bwVXfZL0pMPKlUqlvJxlerAytyLgSkE7fFyAN9shPIMz4SL2SsB5anzqUOsw5UGfKStQprk3HHhoDM=
+  app: desolate-cove-18741
+
