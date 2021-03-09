@@ -18,6 +18,7 @@ import ru.job4j.forum.service.PostService;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -58,10 +59,15 @@ public class PostControlTest {
     @Test
     @WithMockUser
     public void shouldReturnAddDiscussion() throws Exception {
+        Post post = new Post();
+        post.setId(1L);
+        post.setName("Test");
+        when(this.posts.getPostById(anyLong())).thenReturn(post);
         this.mockMvc.perform(get("/add_discussion?post_id=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("add_discussion"));
+        verify(posts).getPostById(anyLong());
     }
 
     @Test
