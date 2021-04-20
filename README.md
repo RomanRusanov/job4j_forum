@@ -48,12 +48,11 @@ http://localhost:8080/logout
 ![image](screenShots/Screenshot_6.png)
 
 ##Конфигурирация
-
-* Необходимо создать БД и указать логин пароль для подключения ```src/main/resources/application.properties```
-* ```db/insert.sql``` есть данные для аутентификации пользователя
+*   Необходимо создать БД и указать логин пароль для подключения
+    ```src/main/resources/application.properties```
+*   ```db/insert.sql``` есть данные для аутентификации пользователя
 
 ##Контакты:
-
-* email: roman9628@gmail.com
-* skype: rusanov_roman
-* telegram: @Roman_Rusanov
+*   email: roman9628@gmail.com
+*   skype: rusanov_roman
+*   telegram: @Roman_Rusanov
