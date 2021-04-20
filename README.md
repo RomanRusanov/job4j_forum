@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/RomanRusanov/job4j_forum.svg?branch=master)](https://travis-ci.org/RomanRusanov/job4j_forum)
+[![Build Status](https://www.travis-ci.com/RomanRusanov/job4j_forum.svg?branch=master)](https://www.travis-ci.com/RomanRusanov/job4j_forum)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/66834a8bc287457a950e1f9e9c9fc858)](https://www.codacy.com/gh/RomanRusanov/job4j_forum/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RomanRusanov/job4j_forum&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/RomanRusanov/job4j_forum/branch/master/graph/badge.svg)](https://codecov.io/gh/RomanRusanov/job4j_forum)
 
