@@ -14,6 +14,7 @@ script: mvn clean package -DskipTests=true
 #postgresql
 ## Изменяет текущую временную зону.
 before_install:
+  - chmod +x mvnw
   - export TZ=Europe/Moscow
   - date
 #  # JDBC создание базы данных
@@ -21,11 +22,11 @@ before_install:
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
-#after_success:
-#  - bash <(curl -s https://codecov.io/bash)
-#env:
-#  global:
-#    - CODECOV_TOKEN="59d8cd47-2c12-47ea-abab-d75d71719563"
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    - CODECOV_TOKEN="004d72e2-32d5-4f60-bc22-ef83bb9bdeca"
 
 # Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
 notifications:

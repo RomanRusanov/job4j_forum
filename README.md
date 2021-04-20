@@ -1,30 +1,59 @@
 [![Build Status](https://travis-ci.org/RomanRusanov/job4j_forum.svg?branch=master)](https://travis-ci.org/RomanRusanov/job4j_forum)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/66834a8bc287457a950e1f9e9c9fc858)](https://www.codacy.com/gh/RomanRusanov/job4j_forum/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RomanRusanov/job4j_forum&amp;utm_campaign=Badge_Grade)
+[![codecov](https://codecov.io/gh/RomanRusanov/job4j_forum/branch/master/graph/badge.svg)](https://codecov.io/gh/RomanRusanov/job4j_forum)
 
-В этом уроке мы избавимся от tomcat за счет модуля Spring Boot.
-В качестве проекта мы сделаем классическое приложение - форум.
-#Задание 1
+[link to heroku deploeyd app](https://desolate-cove-18741.herokuapp.com/)
+(UserName: user) (Password: 123)
 
-1. Создайте репозиторий job4j_forum.
+Реализация простого сайта форума с аутентификацией пользователей
 
-2. Создайте виды и контроллеры.
+### 1. Аутентификация пользователя
 
-    index.jsp - список тем.
+http://localhost:8080/login
 
-    reg.jsp - регистрация пользователя.
+![image](screenShots/Screenshot_1.png)
 
-    login.jsp - авторизация пользователя.
+### 2. Страница с темами
 
-    edit.jsp - создание и редактирование темы.
+Можно редактировать существующие темы или создавать новые.
 
-    post.jsp - тема и обсуждения.
+http://localhost:8080/index
 
-3. Создайте модели Post, User.
+![image](screenShots/Screenshot_2.png)
 
-#Задание 2
+### 3. Редактирование темы
 
-Продолжим экспериментировать с магией Spring boot.
-В этом уроке мы подключим базу данных.
+http://localhost:8080/edit?post_id{id темы в БД}
 
-#Задание 3
-Финальный этап. Подключение безопасности.
-Действия аналогичны подключению Spring Security.
+![image](screenShots/Screenshot_3.png)
+
+### 4. Страница выбранной темы
+
+Можно добавить новый пост
+
+http://localhost:8080/edit?post_id{id темы в БД}
+
+![image](screenShots/Screenshot_4.png)
+
+### 5. Добавление нового поста
+
+http://localhost:8080/add_discussion?post_id{id темы в БД}
+
+![image](screenShots/Screenshot_5.png)
+
+### 6. Завершение сеанса пользователя
+
+http://localhost:8080/logout
+
+![image](screenShots/Screenshot_6.png)
+
+##Конфигурирация
+
+* Необходимо создать БД и указать логин пароль для подключения ```src/main/resources/application.properties```
+* создать схему ```db/shema.sql``` в схеме есть данные для аутентификации пользователя
+
+##Контакты:
+
+* email: roman9628@gmail.com
+* skype: rusanov_roman
+* telegram: @Roman_Rusanov

@@ -49,5 +49,4 @@ public class LoginControlTest {
     public void contextLoads() throws Exception {
         assertThat(this.control).isNotNull();
     }
-
 }
