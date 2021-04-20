@@ -5,10 +5,10 @@ jdk:
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 install: true
-services: postgresql
+services:
+  postgresql
 ## Изменяет текущую временную зону.
 before_install:
-  - chmod +x mvnw
   - export TZ=Europe/Moscow
   - date
   - psql -c 'create database forum;' -U postgres
