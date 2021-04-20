@@ -8,17 +8,17 @@ sudo: false
 
 install: true
 
-script: mvn clean package -DskipTests=true
+#script: mvn clean package -DskipTests=true
 
-#services:
-#postgresql
+services:
+postgresql
 ## Изменяет текущую временную зону.
 before_install:
   - chmod +x mvnw
   - export TZ=Europe/Moscow
   - date
-#  # JDBC создание базы данных
-#  - psql -c 'create database forum;' -U postgres
+  # JDBC создание базы данных
+  - psql -c 'create database forum;' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
