@@ -79,7 +79,7 @@ public class PostControlTest {
     @WithMockUser
     public void testAddNewPost() throws Exception {
         this.mockMvc.perform(post("/save")
-                .param("name","Куплю ладу-грант. Дорого."))
+                .param("name", "Куплю ладу-грант. Дорого."))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
@@ -91,7 +91,7 @@ public class PostControlTest {
     @WithMockUser
     public void testAddNewDiscussion() throws Exception {
         this.mockMvc.perform(post("/add_discussion?post_id=1")
-                .param("description","Новый комментарий."))
+                .param("description", "Новый комментарий."))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Discussions> argument = ArgumentCaptor.forClass(Discussions.class);
