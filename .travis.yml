@@ -2,24 +2,16 @@
 language: java
 jdk:
   - oraclejdk11
-
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
-
 install: true
-
-#script: mvn clean package -DskipTests=true
-
-services:
-postgresql
+services: postgresql
 ## Изменяет текущую временную зону.
 before_install:
   - chmod +x mvnw
   - export TZ=Europe/Moscow
   - date
-  # JDBC создание базы данных
   - psql -c 'create database forum;' -U postgres
-
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
 after_success:
@@ -27,7 +19,6 @@ after_success:
 env:
   global:
     - CODECOV_TOKEN="004d72e2-32d5-4f60-bc22-ef83bb9bdeca"
-
 # Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
 notifications:
   email:
@@ -41,4 +32,3 @@ deploy:
     secure:
       LWnOW9liAE217eRSZd5RUy4N58gCN+oaoKx8Yg/cLR6zvv+mjOqaT2g4e1jvsd3qHT4K1DXv/FkFEKzz8jWI/XFY0iUYeRz7P/qZmyFueWWWzL2OL4wVOzJ4SleadtU8utBMVSrfbN5SxArnAY7MgT8/yHKrm5bQqr5xx2+zVNGmdoLYYNq1zWvR7nR+6bVXCZp9b1SfFVkP1rO4mAj8DdJjndHBPhx/dXikO8OZoUnxqQbVYbhmgGI2Qu/EDMxhslJblqYJd1ZHoKlfnXtx5OIyzsSfl1rFMdvpE/SIVUs5aRNXsl7hf/j8m67sXwBrEw9HHghIWVIdKeMcsiUtUXgdjJRrYENO59HaC16l0jqrubYoCXfkufKU3wzep+NrovfwWJA0hvA2gZsU7w19m92L6zj1tmDC4E58xqtLvDhIOlK8BfZuXgxJ65tbrzJwBMw6KtEvEfatNlJSiJQH9oPKJU+VB8TbvrhrQFqpSF9npjNHYjd4NL/NiocRSIdx6CMTFeHTCQhz32Z97AWWjtR8XVfTRWlD4IqsulrYAtiqOphHMgZz6ZjBE518k+ircu+U6XS4TR77sgUrXyfJjml1QFfNfiyR1wIOdtoI2EYTI7UuRFUJNLQlDjPrga/OuCI1BRxTBbwBTaqmogs4eQHlZ2TyOEfaTYJndbgPYk4=
   app: desolate-cove-18741
-
